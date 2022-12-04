@@ -12,7 +12,6 @@ namespace Geek
         
         public IExecute[] InteractiveObject { get => _interactiveObject; set => _interactiveObject = value; }
     
-        
         public ListExecuteObjectController()
         {
 
@@ -30,5 +29,4 @@ namespace Geek
             _interactiveObject[Length - 1] = execute;
         }
     }
-
 }

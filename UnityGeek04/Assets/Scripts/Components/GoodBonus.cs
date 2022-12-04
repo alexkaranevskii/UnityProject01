@@ -2,17 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoodBonus : MonoBehaviour
+namespace Geek
 {
-    // Start is called before the first frame update
-    void Start()
+    public class GoodBonus : Bonus
     {
-        
-    }
+        public override void Awake()
+        {
+            base.Awake();
+            // init bonus point, material, height fly 
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public override void Update()
+        {
+            // fly
+            // flick
+        }
+
+        protected override void Interaction()
+        {
+            IsInteractable = false;
+            Debug.Log("Сработал триггер");
+            // Add point
+        }
+
     }
 }

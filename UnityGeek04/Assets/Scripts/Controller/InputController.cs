@@ -16,10 +16,10 @@ namespace Geek
         }
         public void Update()
         {
-            horizontal = Input.GetAxis("Horizontal");
-            vertical = Input.GetAxis("Vertical");
+           horizontal = Input.GetAxis("Horizontal");
+           vertical = Input.GetAxis("Vertical");
 
-            _player.Move(horizontal, 0, vertical);
+           _player.Move(horizontal, 0, vertical);
         }
     }
 }

@@ -6,13 +6,9 @@ namespace Geek {
 
 public class Main : MonoBehaviour
     {
-
         private InputController _inputController;
-
         private ListExecuteObjectController _executeObject;
-
         [SerializeField] private Unit _player;
-
 
         private void Awake()
         {
@@ -20,8 +16,6 @@ public class Main : MonoBehaviour
             _executeObject = new ListExecuteObjectController();
             _executeObject.AddExecuteObject(_inputController);
         }
-    
-
         void Update()
         {
             for (int i=0; i< _executeObject.Length; i++)

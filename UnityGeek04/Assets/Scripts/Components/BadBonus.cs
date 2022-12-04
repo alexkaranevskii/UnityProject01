@@ -2,17 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BadBonus : MonoBehaviour
+namespace Geek
 {
-    // Start is called before the first frame update
-    void Start()
+    public class BadBonus : Bonus
     {
-        
+        public override void Awake()
+        {
+            base.Awake();
+        }
+
+        public override void Update()
+        {
+
+        }
+
+        protected override void Interaction()
+        {
+            IsInteractable = false;
+            Debug.Log("Сработал триггер");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
