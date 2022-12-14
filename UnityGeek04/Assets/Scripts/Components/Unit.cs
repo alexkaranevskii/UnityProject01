@@ -6,11 +6,13 @@ namespace Geek {
 
     public abstract class Unit : MonoBehaviour
     {
+
         public Transform _transform;
         public Rigidbody _rb;
+        private float _size;
 
         private float _speed = 5f;
-        private int _health;
+        [SerializeField] private int _health;
         private bool _isDead;
 
         public int Health
@@ -22,14 +24,53 @@ namespace Geek {
 
             set
             {
-                if (value <= 100  && value >= 0)
+                if (value <= 100 && value >= 0)
                 {
                     _health = value;
                 }
                 else
+                    if (value <= 0)
+                {
+                    _isDead = true;
+                }
+                else
                 {
                     _health = 100;
-                    Debug.Log("Неправильное число");
+                    Debug.Log("Вонус использован напрасно, жизнь на максимуме");
+                }
+            }
+        }
+
+
+        public bool IsDead
+        {
+            get
+            {
+                return _isDead;
+            }
+            set
+            {
+                _isDead = value;
+            }
+        }
+
+        public float Size
+        {
+            get
+            {
+                return _size;
+            }
+
+            set
+            {
+                if (value <= 2.0f && value >= 0.0f)
+                {
+                    _size = value;
+                }
+                else
+                {
+                    _size = 2.0f;
+                    Debug.Log("Бонус использован напрасно, размер на максимуме");
                 }
             }
         }
@@ -45,9 +86,15 @@ namespace Geek {
             {
                 Debug.Log("Не найден компонент Rigidbody");
             }
+             _isDead = false;
+
+             Health = _health;
+             Size = _size;
+             IsDead = _isDead; 
         }
 
-        public abstract void Move(float x, float y, float z); 
-       
+        public abstract void Move(float x, float y, float z);
+
+
     }
 }

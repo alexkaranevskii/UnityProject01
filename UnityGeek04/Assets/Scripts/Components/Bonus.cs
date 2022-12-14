@@ -1,19 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Geek;
+using System;
+using Random = UnityEngine.Random;
 
 namespace Geek{ 
-    public abstract class Bonus : MonoBehaviour, IExecute
+    public abstract class Bonus : MonoBehaviour, IExecute, ITouch
     {
+
         private bool _isInteractable;
         protected Color _color;
         private Renderer _renderer;
         private Collider _collider;
 
+        Player player;
 
-        public float _heightFly;
-
+        public float _heightFly;  
         public bool IsInteractable
         {
             get => _isInteractable;
@@ -43,16 +45,23 @@ namespace Geek{
             _renderer.sharedMaterial.color = _color;
         }
 
+
+        // Метод определяющий, кто попал в зону взаимодейстия коллайдера Бонуса, проверяет наличие других коллайдерорв
+        // для этого мы прокидываем ему Collider other
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            // проверка, если в компонентах есть Player то playerComponent = true
+            var playerComponent = other.GetComponent<Player>(); 
+
+            if (playerComponent)
             {
-                Interaction();
-               
+                Interaction(playerComponent);
             }
         }
-
-        protected abstract void Interaction();
+        // Bonus у нас воздействует на игрока, мы передаем ему Player
+        // в качестве аргумента в метод прокидываем Player player
+        // далее в наследниках мы должеы соблюдать сигнатуру метода
+        protected abstract void Interaction(Player player);
          
         public abstract void Update();
     }
