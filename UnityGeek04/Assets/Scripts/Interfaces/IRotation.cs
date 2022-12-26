@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IRotation
+
+namespace Geek
 {
-    void Rotate();
+    public interface IRotation
+    {
+        void Rotate();
+    }
 }

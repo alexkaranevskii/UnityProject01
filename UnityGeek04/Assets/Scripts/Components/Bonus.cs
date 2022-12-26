@@ -5,8 +5,12 @@ using System;
 using Random = UnityEngine.Random;
 
 namespace Geek{ 
+
     public abstract class Bonus : MonoBehaviour, IExecute, ITouch
     {
+
+        public AudioClip[] sound;
+        public AudioSource a;
 
         private bool _isInteractable;
         protected Color _color;

@@ -25,9 +25,16 @@ namespace Geek
         protected override void Interaction(Player player)
         {
             Debug.Log("Сработал триггер плохого бонуса");
+            playSong();
             player.Damage(_damage); // такого метода у Player нет, поэтому создаем.
             player.SubtractSize(0.35f);
             IsInteractable = false;
+        }
+
+        public void playSong()
+        {
+            a.clip = sound[0];
+            a.Play();
         }
     }
 

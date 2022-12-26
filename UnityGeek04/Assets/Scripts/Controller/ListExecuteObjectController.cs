@@ -11,6 +11,8 @@ namespace Geek
         public int Length { get { return _interactiveObject.Length; } }   
         public IExecute[] InteractiveObject { get => _interactiveObject; set => _interactiveObject = value; }
 
+       
+
         // Конструктор
         public ListExecuteObjectController()
         {

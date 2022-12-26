@@ -1,19 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Geek { 
 
     public abstract class Unit : MonoBehaviour
     {
 
+        public const int MaxHealth = 100; 
         public Transform _transform;
         public Rigidbody _rb;
         private float _size;
+        private string Name { get; set;}
 
+        private Renderer _renderer;
+        private Collider _collider;
+
+        [SerializeField]
         private float _speed = 5f;
         [SerializeField] private int _health;
         private bool _isDead;
+
+        // Событие - изменение здоровья 
+        public event Action<int> PlayerHealthChanged;
 
         public int Health
         {
@@ -24,20 +34,13 @@ namespace Geek {
 
             set
             {
-                if (value <= 100 && value >= 0)
-                {
-                    _health = value;
-                }
-                else
-                    if (value <= 0)
-                {
-                    _isDead = true;
-                }
-                else
-                {
-                    _health = 100;
-                    Debug.Log("Вонус использован напрасно, жизнь на максимуме");
-                }
+               // if (value <= 100 && value >= 0)
+               // {
+                    //_health = value;
+                    _health = Mathf.Clamp(value ,0, 100);  // Устанваливаем порог health
+                    PlayerHealthChanged?.Invoke(Health);
+               // }
+               
             }
         }
 
@@ -75,6 +78,13 @@ namespace Geek {
             }
         }
 
+
+        private void Start()
+        {
+            _health = MaxHealth;
+        }
+        public float Speed { get => _speed; set => _speed = value; }
+
         public virtual void Awake()
         {
             if (!TryGetComponent<Transform>(out _transform))
@@ -86,15 +96,15 @@ namespace Geek {
             {
                 Debug.Log("Не найден компонент Rigidbody");
             }
-             _isDead = false;
 
+             _isDead = false;
              Health = _health;
              Size = _size;
-             IsDead = _isDead; 
+             IsDead = _isDead;
+             Speed = _speed;
         }
 
         public abstract void Move(float x, float y, float z);
-
 
     }
 }

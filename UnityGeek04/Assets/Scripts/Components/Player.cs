@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,14 +7,10 @@ using UnityEngine;
 namespace Geek {
     public class Player : Unit
     {
-        
         public override void Awake()
         {
             base.Awake();
-           // Health = 100;
         }
-
-       
         public bool Touch()
         {
             return false;
@@ -47,6 +44,16 @@ namespace Geek {
             var scale = transform.localScale;
             scale.z = _addSize;
             scale.y = _addSize;
+            scale.x = _addSize;
+            transform.localScale = scale;
+        }
+
+        // Метод увеличения скорости Player_а
+        public void AddSpeed(float _addSpeed)
+        {
+            var scale = transform.localScale;
+            Speed = _addSpeed;
+
             transform.localScale = scale;
         }
 
