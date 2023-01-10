@@ -6,8 +6,15 @@ using Random = UnityEngine.Random;
 
 namespace Geek{ 
 
-    public abstract class Bonus : MonoBehaviour, IExecute, ITouch
+    public abstract class Bonus : MonoBehaviour, IExecute, ITouch, IFly, IRotation
     {
+
+        public float t = 0;       // Время от которого будет считаться синус
+        public float Amp = 0.20f; // Амплитуда движения 
+        public float Freg = 0.25f;    // Частота колебаний
+        public float Offset = 0;  // Сдвиг
+        public Vector3 StartPos;  // Начальное положение
+
 
         public AudioClip[] sound;
         public AudioSource a;
@@ -17,9 +24,11 @@ namespace Geek{
         private Renderer _renderer;
         private Collider _collider;
 
+
         Player player;
 
         public float _heightFly;  
+
         public bool IsInteractable
         {
             get => _isInteractable;
@@ -36,17 +45,18 @@ namespace Geek{
         {
             if (!TryGetComponent<Renderer>(out _renderer))
             {
-                Debug.Log("Не найден компонент Renderer");
+                Debug.Log("Не найден компонент Renderer у какого то бонуса");
             }
 
             if (!TryGetComponent<Collider>(out _collider))
             {
-                Debug.Log("Не найден компонент Collider");
+                Debug.Log("Не найден компонент Collider у какого то бонуса");
             }
 
             IsInteractable = true;
             _color = Random.ColorHSV();
             _renderer.sharedMaterial.color = _color;
+            StartPos = transform.position;   // Запоминаем позицию
         }
 
 
@@ -68,5 +78,11 @@ namespace Geek{
         protected abstract void Interaction(Player player);
          
         public abstract void Update();
+
+        // Метод движения вверх - вниз
+        public abstract void Fly();
+
+        // Метод вращения
+        public abstract void Rotate();
     }
 }

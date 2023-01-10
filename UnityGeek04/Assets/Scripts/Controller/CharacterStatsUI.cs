@@ -11,14 +11,19 @@ namespace Geek
 
         [SerializeField] private Slider _slider;
         [SerializeField] private TextMeshProUGUI _healthText;
-       
+        [SerializeField] private TextMeshProUGUI _levelText;
+
         private Player _player;
-        private int _playerMaxHealth; 
-       
+        private int _playerMaxHealth;
+        private LevelLoader _levelLoader;
+
+
         public void Initialize(Player player)
         {
             _player = player;
             player.PlayerHealthChanged += OnHealthChanged;
+          //  _levelLoader = levelLoader;
+          //  levelLoader.LevelChanged += OnLevelChanged;
 
         }
 
@@ -34,6 +39,14 @@ namespace Geek
             _healthText.text = $"Health: {playerHealth}/{Player.MaxHealth}";
 
             StartCoroutine(SetSliderValueCoroutine(normalisedValue, 0.5f));
+        }
+
+        private void OnLevelChanged(int levelIndex)
+        {
+            //  var normalisedValue = playerHealth / Player.MaxHealth;
+            _levelText.text = $"Level: {levelIndex}";
+
+          //  StartCoroutine(SetSliderValueCoroutine(normalisedValue, 0.5f));
         }
 
 

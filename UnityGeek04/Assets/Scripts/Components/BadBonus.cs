@@ -9,32 +9,46 @@ namespace Geek
 {
     public class BadBonus : Bonus
     {
+
         [SerializeField] private int _damage;
+
 
         public override void Awake()
         {
             base.Awake();
-            // init bonus point, material, height fly 
+
         }
 
         public override void Update()
         {
-            // Get Damage
+            Rotate();
         }
 
         protected override void Interaction(Player player)
         {
+
             Debug.Log("Сработал триггер плохого бонуса");
             playSong();
             player.Damage(_damage); // такого метода у Player нет, поэтому создаем.
             player.SubtractSize(0.35f);
             IsInteractable = false;
+            player.ChangeColorForDamage();
         }
 
         public void playSong()
         {
             a.clip = sound[0];
             a.Play();
+        }
+
+        public override void Fly()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Rotate()
+        {
+            transform.Rotate(new Vector3(0, 0.5f,0));
         }
     }
 

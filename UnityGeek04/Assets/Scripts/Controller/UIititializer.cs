@@ -8,11 +8,10 @@ namespace Geek {
     {
         [SerializeField] private Player _player;
         [SerializeField] private CharacterStatsUI _statsUI;
-    
+
         void Start()
         {
             _statsUI.Initialize(_player);
-
         }
     
     }

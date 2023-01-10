@@ -7,9 +7,11 @@ using UnityEngine;
 namespace Geek {
     public class Player : Unit
     {
+
         public override void Awake()
         {
             base.Awake();
+
         }
         public bool Touch()
         {
@@ -29,6 +31,14 @@ namespace Geek {
         {
             Debug.Log("ѕолучили по носу");
             Health -= damage;
+            if (Health <= 0)
+            {
+                IsDead = true;
+            }
+            else
+            {
+                IsDead = false;
+            }
         }
 
         // ћетод увеличени€ здоровь€
@@ -67,5 +77,18 @@ namespace Geek {
             transform.localScale = scale;
         }
 
+        
+    // изменение цвета при столкновении с плохим бонусом 
+        public void ChangeColorForDamage()
+        {
+            _fillTarget.material = matBlink;
+            Invoke("ResetMaterial", .3f);
+        }
+
+        // возврат к материалу по умолчанию
+        public void ResetMaterial()
+        {
+            _fillTarget.material = matDefault;
+        }
     }
 }

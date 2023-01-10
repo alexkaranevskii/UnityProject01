@@ -2,25 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 namespace Geek { 
 
     public abstract class Unit : MonoBehaviour
     {
 
-        public const int MaxHealth = 100; 
+        public const int MaxHealth = 100;
+        public int score = 0;
         public Transform _transform;
         public Rigidbody _rb;
         private float _size;
         private string Name { get; set;}
-
-        private Renderer _renderer;
         private Collider _collider;
 
-        [SerializeField]
-        private float _speed = 5f;
+        //private Renderer _renderer
+        [SerializeField] public Renderer _fillTarget;
+        [SerializeField] public Material matBlink;
+        [SerializeField] public Material matDefault;
+
+
+        [SerializeField] private float _speed = 5f;
         [SerializeField] private int _health;
+
         private bool _isDead;
+
 
         // Событие - изменение здоровья 
         public event Action<int> PlayerHealthChanged;
@@ -79,10 +86,10 @@ namespace Geek {
         }
 
 
-        private void Start()
-        {
-            _health = MaxHealth;
-        }
+      //  private void Start()
+     //   {
+     //       _health = MaxHealth;
+     //  }
         public float Speed { get => _speed; set => _speed = value; }
 
         public virtual void Awake()
@@ -97,14 +104,26 @@ namespace Geek {
                 Debug.Log("Не найден компонент Rigidbody");
             }
 
+           //  matBlink = Resources.Load("PlayerBlink", typeof(Material)) as Material;
+           //  matDefault = Resources.Load("PlayerDefault", typeof(Material)) as Material;
+
+           // _fillTarget.material = matDefault;
+
+             _health = MaxHealth;
              _isDead = false;
              Health = _health;
              Size = _size;
              IsDead = _isDead;
              Speed = _speed;
+           
         }
+
+     //   public abstract void ChangeMaterial(Material material);
+    
 
         public abstract void Move(float x, float y, float z);
 
     }
 }
+
+

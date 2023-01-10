@@ -6,12 +6,10 @@ public class BadBonusWaypointMovement : MonoBehaviour
 {
     [SerializeField] private Transform _path;
     [SerializeField] private float _speed; // скорость перемещения
-
     private Transform[] _points;
-
     private int _currentPoint; // текущая точка
 
-    
+
     void Start()
     {
         _points = new Transform[_path.childCount]; // Создадим массив для хранения всех точек,
@@ -21,7 +19,6 @@ public class BadBonusWaypointMovement : MonoBehaviour
             _points[i] = _path.GetChild(i);
         }
     }
-
 
     void Update()
     {

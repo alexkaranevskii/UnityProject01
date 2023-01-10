@@ -9,16 +9,16 @@ namespace Geek
     {
         [SerializeField] private int _healValue;
         [SerializeField] private int _addSpeed;
+
+
         public override void Awake()
         {
             base.Awake();
-            // init bonus point, material, height fly 
         }
 
         public override void Update()
         {
-            // fly
-            // flick
+            Fly();
         }
         protected override void Interaction(Player player)
         {
@@ -28,6 +28,7 @@ namespace Geek
             player.AddHealth(_healValue); 
             player.AddSize(0.9f);
             player.AddSpeed(10.0f);
+            player.ChangeColorForDamage();
             IsInteractable = false;
         }
 
@@ -37,5 +38,18 @@ namespace Geek
             a.Play();
         }
 
+        // Метод движения вверх - вниз
+        public override void Fly()
+        {
+            // Обработка движения бонуса вверх вниз
+            t = t + Time.deltaTime;
+            Offset = Amp * Mathf.Sin(t * Freg);
+            transform.position = StartPos + new Vector3(0, Offset, 0);
+        }
+
+        public override void Rotate()
+        {
+
+        }
     }
 }
